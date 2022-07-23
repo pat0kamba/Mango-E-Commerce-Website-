@@ -3,7 +3,7 @@ _______________
 
 This is a full stack React Application that mimicks the normal behaviour of an e-commerce website; users can browse through the application to pick their favorite
 items, users can add items to a wishlist for later usage, users can check items out if they want to purchase etc.
-Pictures of the application are located with the client folder/ the src folder / the Layouts folder.
+Pictures of the application are located within the client folder/ the src folder / the Layouts folder.
 
 ## How To run the App
 _____________________
@@ -38,8 +38,22 @@ _________
 1. Fix the behaviour of the like Button
 2. Responsiveness of the navigation bar
 
+## Dependencies
+_______________
+Client side
+____________
+- react-router-dom
+- reduxjs/toolkit, react-redux
+- mui/material, mui/style
+
+Server side
+____________
+- Express
+- body-parser, helmet, morgan, cookie-parser, compression
+- mongoose, express-jwt, jwt
+
 ## Deployment
 ______________
 
-
+Currently working on a few buggs before deployment
 
