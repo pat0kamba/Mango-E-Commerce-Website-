@@ -26,7 +26,7 @@ _______________________
 ## Features
 ____________
 
-1. The Frontend is built using the JS framework ReactJS
+1. The Frontend is built using the JS library ReactJS
 2. Routing is defined using react-router-dom, state management is defined by Redux toolkit and react-redux
 3. Styling is defined with Material UI
 4. The Backend is built using NodeJs/ ExpressJS
