@@ -52,6 +52,10 @@ ____________
 - body-parser, helmet, morgan, cookie-parser, compression
 - mongoose, express-jwt, jwt
 
+## Pictures
+_____________
+
+
 ## Deployment
 ______________
 
