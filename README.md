@@ -54,7 +54,22 @@ ____________
 
 ## Pictures
 _____________
+#Mobile
+________
 
+![](Screen%20Shot%20EC%5Fmobile.png)
+
+## Tablet
+__________
+![](Screen%20Shot%20EC%5Ftablet.png)
+![](Screen%20Shot%20EC%5Ftablet2.png)
+![](Screen%20Shot%20EC%5Ftablet3.png)
+
+## Laptop
+__________
+![](Screen%20Shot%20EC%5Flaptop1.png)
+![](Screen%20Shot%20EC%5Flaptop2.png)
+![](Screen%20Shot%20EC%5Flaptop3.png)
 
 ## Deployment
 ______________
