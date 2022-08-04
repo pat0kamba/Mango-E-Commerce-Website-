@@ -5,23 +5,20 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {cartActions} from "../../store/cartSlice.js";
-import {useRef} from "react";
 import "../../styles/Product.css";
 
-
+ 
 export default function Article(props)
 {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const wish = useSelector((state)=>state.cart.wish);
-    const likeRef = useRef(0);
+    const wishArray = useSelector((state)=>state.cart.wishArray);
     let description;
     let image_src;
     let price;
     let name;
     let article_id;
     let article_size;
-    let _color="#ccc";
     const handleItem = (describe, image, tag, theId, theName, theSize)=>{
         description = describe;
         image_src = image;
@@ -52,17 +49,13 @@ export default function Article(props)
             imageUrl:image,
             id:theId
         }));
-       console.log(likeRef.current);
-       console.log(`Item ${theId} was clicked`);
-       console.log(document.querySelector(`#the${theId}`));
-       console.log(document.querySelector(`.abc`));
     }
 
     const handleRemoveWish = (theId)=>{
         dispatch(cartActions.addToWishlist({
             id:theId
         }));
-        console.log(likeRef.current.querySelector(`#${theId}`)); 
+       
     }
     
    
@@ -70,10 +63,13 @@ export default function Article(props)
         <Container maxWidth="xlg" sx={{my:"20px", px:"0"}}>
             <Grid container sx={{px:"0"}} spacing={0.5} justifyContent="space-between">
             { props.articles[1].map((article, id)=>{
+                
                 const Image = article.ImageUrl;
                 return(<Grid item xs={12} md={3} key={id} >
                         <Box  className="stacked">
-                        <img src={Image} style={{width:"100%", height:"100%"}} alt="Shirt-img" className="product_img" onClick={()=>{handleItem(article.description, article.ImageUrl, article.price, article.id, article.name, article.sizes)}}/>
+                        <img src={Image} style={{width:"100%", height:"100%"}} alt="Shirt-img" className="product_img" 
+                        onClick={()=>{handleItem(article.description, article.ImageUrl, article.price, article.id, article.name, article.sizes)}}   
+                        />
                         <Box className="gridContent">
                         <Box className="sizes" sx={{textAlign:"center"}}>
                         <Typography variant="body2" gutterBottom>Add size</Typography>    
@@ -87,9 +83,27 @@ export default function Article(props)
                         <Box sx={{display:"flex", justifyContent:"space-between"}}>
                         <Typography variant="body2" gutterBottom color="secondary">{article.name}</Typography>
 
-                        { wish ?<Button onClick={()=>{handleAddWish(article.name, article.price, article.ImageUrl, article.id) ; _color="pink"} } ref={likeRef}> <FavoriteBorderIcon /> </Button>:
-                        <Button onClick={()=>{handleRemoveWish(article.id);  }}> <FavoriteIcon id={"the"+article.id} ref={likeRef} sx={{color:`${_color}`}} /></Button>
-                        }
+                        <Button onClick={()=>{
+                        // localStorage.setItem('theId', article.id);
+                        let temp = true ;
+                        for (let i=0; i<wishArray.length+1 ; i++)
+                        {
+
+                            if (article.id === wishArray[i] && document.getElementById(article.id).style.color==="red")
+                            {
+                                temp = false;                       
+                                handleRemoveWish(article.id);
+                             
+                                break;
+
+                            }
+                           
+                        }            
+                        temp && handleAddWish(article.name, article.price, article.ImageUrl, article.id);
+                        temp ? document.getElementById(article.id).style.color='red' : document.getElementById(article.id).style.color='blue' ;
+                        dispatch(cartActions.setWish(article.id));
+                        } } id={article.id} > <FavoriteBorderIcon /> </Button>
+                        
                         </Box>
                         <Typography variant="body2" gutterBottom color="secondary">US${article.price}</Typography>
 
@@ -103,3 +117,8 @@ export default function Article(props)
 
 
 }
+
+// have a temporary array where ids can be pushed
+// at each event , check if id is in the array
+// if so, turned the state to false
+// else continue

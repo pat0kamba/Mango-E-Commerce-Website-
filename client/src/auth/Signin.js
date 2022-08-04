@@ -83,12 +83,18 @@ export default function Signin()
             }else{
                 auth.authenticate(data, () => {
                     setValue({ ...value, error: ''});
-                    dispatch(cartActions.addToCart(data.item.cart));
-                    dispatch(cartActions.addToWishlist(data.item.wishlist));
+                    console.log(data.item.badge);
+                    console.log(data.item.badge);
+                    console.log(data.item.wishlist);
+                    dispatch(cartActions.setShoppingCart(data.item.cart));
+                    dispatch(cartActions.setWishList(data.item.wishlist));
                     dispatch(cartActions.setBadge(data.item.badge));
                     dispatch(cartActions.setSignIn());
                     navigate('/');
-                  })
+                  });
+                
+                  console.log(products);
+                  console.log(badgeCart);
                 
             }
         })

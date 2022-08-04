@@ -17,10 +17,8 @@ import "../styles/Navbar.css";
 
 export default function Navbar()
 {
-    const value = useSelector((state)=>state.cart.badgeCart);
+    let value = useSelector((state)=>state.cart.badgeCart);
     let wishlist = useSelector((state)=>state.cart.wishlist);
-    let cart = useSelector((state)=>state.cart.products);
-    let badge = useSelector((state)=>state.cart.badge);
     const menu = useSelector((state)=>state.cart.menu);
     const signIn_btn = useSelector((state)=>state.cart.signIn);
     let showMenu = "none";
@@ -28,7 +26,10 @@ export default function Navbar()
     console.log(location);
     const [search, setSearch] = useState(false);
     const [input, setInput] = useState('');
-    const [width, setWidth] = useState(document.body.clientWidth);
+    const [windowSize, setWindowSize] = useState({
+        width:undefined,
+        height:undefined
+    });
     const [menu_icn, setMenuIcn] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -53,26 +54,57 @@ export default function Navbar()
 
     function handleSignOut()
     {
-        wishlist = [];
-        cart = [];
-        badge = 0;
+        //TODO  will also make sure to update the badge, wishlist and cart before signing out
+        dispatch(cartActions.setShoppingCart([]));
+        dispatch(cartActions.setWishList([]))
+        dispatch(cartActions.setBadge(0));
         navigate('/');
     }
-    function checkWidth()
-    {
-        if (width < 768)
-        {
-            setMenuIcn(true);
-            console.log("screen less than 768px")
-        }else{
-            setMenuIcn(false);
-        }
-
-    };
+    
     useEffect(()=>{
-        checkWidth();
-    })
+        function reSize()
+        {
+            const theWidth = window.innerWidth;
+            const theHeight = window.innerHeight;
+            setWindowSize((prev)=>({...prev,
+                width:theWidth,
+                height:theHeight
+            }));
+            
+            console.log('inside the resize function')
+            console.log(theWidth);
+            if(theWidth < 768)
+            {
+            setMenuIcn(true);
+            }else{
+            setMenuIcn(false);
+            }
+
+        };
+       
+
+        console.log(windowSize.width);
+        console.log(window.innerWidth);
+
+        reSize();
+
+        if(window.attachEvent) {
+            window.attachEvent('onresize',reSize);
+        }
+        else if(window.addEventListener) {
+            window.addEventListener('resize', reSize, true);
+        }
+        // else {
+        //     //The browser does not support Javascript event binding
+        // }
+
+        return ()=>{
+            window.removeEventListener('resize', reSize);
+            window.detachEvent('resize', reSize);
+        }
+    }, [])
    
+    
        
     
     return(
