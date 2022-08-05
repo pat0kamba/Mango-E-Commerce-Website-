@@ -53,6 +53,8 @@ const cartSlice = createSlice({
         }, 
         addToWishlist(state, action){
             const wish = action.payload;
+            console.log(wish);
+            console.log(state.wishlist);
             const existingItem = state.wishlist.find((item)=>(item.id || item._id) === wish.id);
             if (existingItem){
                 state.wishlist = state.wishlist.filter((item)=>(item.id || item._id) !== existingItem.id)

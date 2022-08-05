@@ -1,7 +1,6 @@
 import React from 'react';
 import {Typography, Grid, Box, Container, Button} from "@mui/material";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import {useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {cartActions} from "../../store/cartSlice.js";
@@ -58,7 +57,8 @@ export default function Article(props)
        
     }
     
-   
+    
+    
     return(
         <Container maxWidth="xlg" sx={{my:"20px", px:"0"}}>
             <Grid container sx={{px:"0"}} spacing={0.5} justifyContent="space-between">
@@ -88,7 +88,6 @@ export default function Article(props)
                         let temp = true ;
                         for (let i=0; i<wishArray.length+1 ; i++)
                         {
-
                             if (article.id === wishArray[i] && document.getElementById(article.id).style.color==="red")
                             {
                                 temp = false;                       
@@ -102,16 +101,21 @@ export default function Article(props)
                         temp && handleAddWish(article.name, article.price, article.ImageUrl, article.id);
                         temp ? document.getElementById(article.id).style.color='red' : document.getElementById(article.id).style.color='blue' ;
                         dispatch(cartActions.setWish(article.id));
-                        } } id={article.id} > <FavoriteBorderIcon /> </Button>
+                        } } id={article.id} ><FavoriteBorderIcon />
+                       {/* {
+                        (article.id == localStorage.getItem('theId')) ? <FavoriteIcon sx={{color:'red'}}/> : <FavoriteBorderIcon />
+                       } */}
+                        </Button>
                         
                         </Box>
                         <Typography variant="body2" gutterBottom color="secondary">US${article.price}</Typography>
 
                         </Box>
                         </Box>
-                   
+                       
                 </Grid>)})}
             </Grid>
+            
         </Container>
     )
 
