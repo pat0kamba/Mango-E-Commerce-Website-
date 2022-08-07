@@ -76,5 +76,5 @@ __________
 ## Deployment
 ______________
 
-Currently working on a few buggs before deployment
+Project deployed on firebase: https://e-commerce-app-3ba56.web.app
 
